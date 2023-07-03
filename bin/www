@@ -46,7 +46,7 @@ function normalizePort(val) {
   return false;
 }
 
-dbConnect
+dbConnect()
   .then((res) => {
     server.listen(port);
     server.on("error", onError);
