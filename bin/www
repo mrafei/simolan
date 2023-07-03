@@ -47,7 +47,9 @@ function normalizePort(val) {
 }
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI, {
+    bufferCommands: false,
+  })
   .then((res) => {
     server.listen(port);
     server.on("error", onError);
