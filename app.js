@@ -1,17 +1,32 @@
+require("dotenv").config();
+const http = require("http");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const dbConnect = require("./configs/dbConnect");
+const port = process.env.PORT || "3000";
 
 const app = express();
+app.set("port", port);
+const server = http.createServer(app);
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
+dbConnect()
+  .then((res) => {
+    server.listen(port);
+    server.on("error", onError);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
-app.use(logger("dev"));
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -33,4 +48,27 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.statusCode || 500).json({ message: err.message });
 });
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
 module.exports = app;
