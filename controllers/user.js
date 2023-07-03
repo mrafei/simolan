@@ -12,6 +12,7 @@ exports.signup = async (req, res, next) => {
   const hash = await bcrypt.hash(password, 12);
   const user = new User({ username, hash });
   user.save();
+  res.status(201).json({ id: user._id.toString() });
 };
 
 exports.login = async (req, res, next) => {
