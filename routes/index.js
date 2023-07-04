@@ -6,7 +6,6 @@ router.get("/", function (req, res, next) {
   res.json({
     title: "Express",
     dbName: process.env.DB_NAME,
-    uri: process.env.MONGODB_URI,
   });
 });
 
