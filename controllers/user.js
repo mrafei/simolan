@@ -14,9 +14,9 @@ exports.signup = async (req, res, next) => {
   try {
     await user.save();
   } catch (e) {
-    next(e);
+    return next(e);
   }
-  res.status(201).json({ id: user._id.toString() });
+  return res.status(201).json({ id: user._id.toString() });
 };
 
 exports.login = async (req, res, next) => {
