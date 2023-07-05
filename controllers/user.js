@@ -4,19 +4,19 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../configs/jwt");
 exports.signup = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new Error("validation error");
-  }
-  const { username, password } = req.body;
-  const hash = await bcrypt.hash(password, 12);
-  const user = new User({ username, hash });
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) throw new Error("validation error");
+    const { username, password } = req.body;
+    const sameUser = await User.findOne({ username });
+    if (sameUser) throw new Error("This username is taken!");
+    const hash = await bcrypt.hash(password, 12);
+    const user = new User({ username, hash });
     await user.save();
+    return res.status(201).json({ id: user._id.toString() });
   } catch (e) {
     return next(e);
   }
-  return res.status(201).json({ id: user._id.toString() });
 };
 
 exports.login = async (req, res, next) => {
