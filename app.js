@@ -1,14 +1,18 @@
-require("dotenv").config();
-const http = require("http");
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const dbConnect = require("./configs/dbConnect");
-const port = process.env.PORT || "3000";
+import "dotenv/config";
+import http from "http";
+import createError from "http-errors";
+import express from "express";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser";
+import indexRouter from "./routes/index";
+import usersRouter from "./routes/users";
+import transactionsRouter from "./routes/transactions";
+import dbConnect from "./configs/dbConnect";
 
+const port = process.env.PORT || "3000";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
 app.set("port", port);
 const server = http.createServer(app);
@@ -34,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/transactions", transactionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -71,4 +76,4 @@ function onError(error) {
   }
 }
 
-module.exports = app;
+export default app;

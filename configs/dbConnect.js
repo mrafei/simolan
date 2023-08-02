@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
@@ -39,4 +39,4 @@ async function dbConnect() {
   return cached.conn;
 }
 
-module.exports = dbConnect;
+export default dbConnect;
