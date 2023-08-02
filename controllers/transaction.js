@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
-import Transaction from "../models/transaction";
-import User from "../models/user";
+import Transaction from "../models/transaction.js";
+import User from "../models/user.js";
 
 const create = async (req, res, next) => {
   try {

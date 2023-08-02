@@ -1,8 +1,8 @@
 import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
-import User from "../models/user";
 import jwt from "jsonwebtoken";
-import jwtSecret from "../configs/jwt";
+import User from "../models/user.js";
+import jwtSecret from "../configs/jwt.js";
 
 const signup = async (req, res, next) => {
   try {

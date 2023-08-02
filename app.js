@@ -5,10 +5,10 @@ import express from "express";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
-import indexRouter from "./routes/index";
-import usersRouter from "./routes/users";
-import transactionsRouter from "./routes/transactions";
-import dbConnect from "./configs/dbConnect";
+import indexRouter from "./routes/index.js";
+import usersRouter from "./routes/users.js";
+import transactionsRouter from "./routes/transactions.js";
+import dbConnect from "./configs/dbConnect.js";
 
 const port = process.env.PORT || "3000";
 const __filename = fileURLToPath(import.meta.url);

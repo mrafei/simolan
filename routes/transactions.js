@@ -1,6 +1,6 @@
 import express from "express";
-import authMiddleware from "../middlewares/auth";
-import { create } from "../controllers/transaction";
+import authMiddleware from "../middlewares/auth.js";
+import { create } from "../controllers/transaction.js";
 const router = express.Router();
 /* GET users listing. */
 
