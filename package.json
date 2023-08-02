@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
+    "start": "node --experimental-specifier-resolution=node app.js",
     "dev": "nodemon --experimental-specifier-resolution=node app.js"
   },
   "type": "module",
